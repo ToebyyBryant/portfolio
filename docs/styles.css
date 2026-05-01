@@ -189,6 +189,11 @@ tbody td a:hover {
   color: #856404;
 }
 
+.badge.future {
+  background-color: #d1f5e0;
+  color: #1a6b3a;
+}
+
 /* --- Buttons / Links --- */
 .btn {
   display: inline-block;
