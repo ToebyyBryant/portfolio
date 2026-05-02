@@ -5,7 +5,7 @@
 ```
 portfolio/
 ├── index.html                  ← Home page
-├── CIS_Syllabi.html            ← Course syllabi listing
+├── CIS_ClassList.html          ← Course syllabi listing
 ├── projects.html               ← Project showcase
 ├── styles.css                  ← Shared external stylesheet
 ├── BruceSchulzResume.pdf       ← YOUR RESUME (add this file)
