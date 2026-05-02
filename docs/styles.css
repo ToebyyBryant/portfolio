@@ -293,3 +293,130 @@ footer a:hover {
   color: #7a5c00;
   margin-bottom: 1.5rem;
 }
+
+/* --- Code blocks --- */
+pre {
+  background-color: #1e2a3a;
+  color: #e2e8f0;
+  border-radius: 6px;
+  padding: 1.2rem 1.4rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 1rem 0 1.5rem;
+  border-left: 4px solid #e8a020;
+}
+
+code {
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+
+/* --- Tech tag pills --- */
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.6rem 0 1.2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.tech-tags li {
+  background-color: #1a2a4a;
+  color: #b8cce4;
+  border-radius: 4px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* --- Project section divider --- */
+.project-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.3rem 2rem;
+  margin-bottom: 1rem;
+  font-size: 0.93rem;
+  color: #3d4f63;
+}
+
+.project-meta span strong {
+  color: #1a2a4a;
+}
+
+@media (max-width: 640px) {
+  .project-meta {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Architecture diagram box --- */
+.arch-box {
+  background-color: #f0f4fa;
+  border: 1px solid #c8d8ee;
+  border-radius: 6px;
+  padding: 1rem 1.4rem;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.88rem;
+  color: #2c3e50;
+}
+
+.arch-box ul {
+  margin: 0.5rem 0 0 1.2rem;
+  line-height: 1.9;
+}
+
+/* --- API table --- */
+.api-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin-bottom: 1.5rem;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+}
+
+.api-table thead {
+  background-color: #2c4a7c;
+}
+
+.api-table thead th {
+  padding: 0.6rem 0.9rem;
+  color: #fff;
+  text-align: left;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.api-table tbody td {
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid #e8eef6;
+  color: #3d4f63;
+  vertical-align: top;
+}
+
+.api-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.api-table tbody tr:hover {
+  background-color: #f5f8fd;
+}
+
+.method {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.method.get    { background: #d1f5e0; color: #1a6b3a; }
+.method.post   { background: #dbeafe; color: #1e40af; }
+.method.put    { background: #fef3c7; color: #92400e; }
+.method.delete { background: #fee2e2; color: #991b1b; }

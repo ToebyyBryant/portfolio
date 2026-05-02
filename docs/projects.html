@@ -38,7 +38,7 @@
       once projects are finalized. Check back soon!
     </div>
 
-    <!-- ===== ADVANCED PROJECT (General) ===== -->
+    <!-- ===== ADVANCED PROJECT (General) =====
     <h2>Advanced Project</h2>
     <div class="card">
       <h3>Project Title &mdash; <em>Coming Soon</em></h3>
@@ -54,13 +54,13 @@
 
       <h3>Screen Captures</h3>
       <p><em>Screenshots will be added here once the project is complete.</em></p>
-      <!--
+      
         Example once ready:
         <img src="projects/project1/screenshot1.png" alt="Project 1 - Main Screen" style="max-width:100%; border-radius:6px; margin-bottom:1rem;" />
       -->
 
-      <h3>Sample Code</h3>
-      <p><em>Sample code snippets will be added here.</em></p>
+      <!-- <h3>Sample Code</h3>
+      <p><em>Sample code snippets will be added here.</em></p> -->
       <!--
         Example once ready:
         <pre><code>// Sample code here</code></pre>
@@ -69,33 +69,178 @@
       <!-- Uncomment and update when ready:
       <a href="projects/project1/documentation.pdf" class="btn" target="_blank">Full Documentation (PDF)</a>
       <a href="https://github.com/ToebyyBryant/your-repo" class="btn secondary" target="_blank">View on GitHub</a>
-      -->
-    </div>
+      
+    </div> -->
 
-    <!-- ===== C# PROJECT (CIS 296) ===== -->
-    <h2>Advanced C# Project (CIS 296)</h2>
+    <!-- ===== PROJECT (CIS 293) ===== -->
+    <h2>Advanced Technology Project (CIS 293)</h2>
     <div class="card">
-      <h3>C# Project Title &mdash; <em>Coming Soon</em></h3>
+      <h3>Budget Tracker &mdash; <em>Full-Stack Web Application</em></h3>
+
+      <div class="project-meta">
+        <span><strong>Course:</strong> CIS 293 &mdash; Advanced Technology</span>
+        <span><strong>Semester:</strong> Spring 2026</span>
+        <span><strong>Status:</strong> In Progress</span>
+        <span><strong>GitHub:</strong> <a href="https://github.com/ToebyyBryant/budget-tracker" target="_blank">budget-tracker</a></span>
+      </div>
+
+      <ul class="tech-tags">
+        <li>Node.js</li>
+        <li>Express.js</li>
+        <li>PostgreSQL</li>
+        <li>Sequelize ORM</li>
+        <li>React (Vite)</li>
+        <li>Chart.js</li>
+        <li>Tailwind CSS</li>
+        <li>JWT Auth</li>
+        <li>bcrypt</li>
+        <li>Jest</li>
+        <li>Vitest</li>
+        <li>REST API</li>
+      </ul>
+
+      <h3>Project Description</h3>
       <p>
-        <strong>Course:</strong> &nbsp; CIS 296 &mdash; Advanced MS Web Development<br />
-        <strong>Technologies Used:</strong> &nbsp; C#, ASP.NET, SQL Server<br />
-        <strong>Semester:</strong> &nbsp; Spring 2026
+        The Budget Tracker is a full-stack web application that enables authenticated users to record,
+        categorise, and visualise personal income and expense transactions. The system follows an
+        MVC architecture with a RESTful JSON API backend and a single-page application (SPA) frontend.
       </p>
       <p>
-        <em>Project description will be added here. Include a summary of the C# application,
-        its features, architecture decisions, and key learning outcomes.</em>
+        Core goals include secure per-user data isolation enforced at every API layer, a responsive UI
+        that works from 320px to 2560px viewports, and rich data visualisations (pie, bar, and line charts)
+        that update reactively as the user adjusts date filters.
       </p>
+
+      <h3>Architecture</h3>
+      <p>
+        The application is split into two independently deployable packages inside a monorepo:
+        a <strong>Node.js / Express</strong> REST API backend and a <strong>React (Vite)</strong> SPA frontend.
+      </p>
+
+      <div class="arch-box">
+        <strong>Monorepo Structure</strong>
+        <ul>
+          <li><code>server/</code> &mdash; Express API: config, middleware, models, routes, services, utils</li>
+          <li><code>client/</code> &mdash; React SPA: api, components, hooks, pages, utils</li>
+        </ul>
+        <br />
+        <strong>Request Flow</strong>
+        <ul>
+          <li>Browser &rarr; React SPA &rarr; Express API (HTTP + JWT header)</li>
+          <li>JWT Auth Middleware verifies token &rarr; attaches <code>userId</code> or returns 401</li>
+          <li>Service Layer executes Sequelize query against PostgreSQL</li>
+          <li>JSON response &rarr; React re-renders charts and data</li>
+        </ul>
+      </div>
+
+      <h3>Key Features</h3>
+      <div class="arch-box">
+        <ul>
+          <li>User registration &amp; login with JWT authentication (24-hour tokens, bcrypt password hashing)</li>
+          <li>Create, read, update, and delete budget entries with amount, type, category, date, and description</li>
+          <li>Custom and default category management per user</li>
+          <li>Dashboard with income/expense summary cards and top-5 expense categories</li>
+          <li>Interactive pie chart (expenses by category), bar chart (monthly income vs expenses), and line chart (cumulative balance)</li>
+          <li>Date-range filtering that drives all dashboard queries reactively</li>
+          <li>Fully responsive layout with hamburger navigation below 768px</li>
+          <li>Strict per-user data isolation — users can never access each other's data</li>
+        </ul>
+      </div>
+
+      <h3>REST API Endpoints</h3>
+      <table class="api-table">
+        <thead>
+          <tr><th>Method</th><th>Endpoint</th><th>Auth</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="method post">POST</span></td><td><code>/api/auth/register</code></td><td>No</td><td>Register new user</td></tr>
+          <tr><td><span class="method post">POST</span></td><td><code>/api/auth/login</code></td><td>No</td><td>Login, receive JWT</td></tr>
+          <tr><td><span class="method get">GET</span></td><td><code>/api/categories</code></td><td>Yes</td><td>List user's categories</td></tr>
+          <tr><td><span class="method post">POST</span></td><td><code>/api/categories</code></td><td>Yes</td><td>Create category</td></tr>
+          <tr><td><span class="method delete">DELETE</span></td><td><code>/api/categories/:id</code></td><td>Yes</td><td>Delete category (if unused)</td></tr>
+          <tr><td><span class="method get">GET</span></td><td><code>/api/entries</code></td><td>Yes</td><td>List entries with optional filters</td></tr>
+          <tr><td><span class="method post">POST</span></td><td><code>/api/entries</code></td><td>Yes</td><td>Create budget entry</td></tr>
+          <tr><td><span class="method put">PUT</span></td><td><code>/api/entries/:id</code></td><td>Yes</td><td>Update entry</td></tr>
+          <tr><td><span class="method delete">DELETE</span></td><td><code>/api/entries/:id</code></td><td>Yes</td><td>Delete entry</td></tr>
+          <tr><td><span class="method get">GET</span></td><td><code>/api/dashboard/summary</code></td><td>Yes</td><td>Totals + top-5 categories</td></tr>
+          <tr><td><span class="method get">GET</span></td><td><code>/api/dashboard/charts/pie</code></td><td>Yes</td><td>Expense breakdown by category</td></tr>
+          <tr><td><span class="method get">GET</span></td><td><code>/api/dashboard/charts/bar</code></td><td>Yes</td><td>Monthly income vs expenses</td></tr>
+          <tr><td><span class="method get">GET</span></td><td><code>/api/dashboard/charts/line</code></td><td>Yes</td><td>Cumulative balance over time</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Data Models</h3>
+      <p>Three core Sequelize models backed by PostgreSQL:</p>
+      <pre><code>// User — stores credentials
+{ id, email (unique), password_hash, created_at, updated_at }
+
+// Category — default (user_id = NULL) or user-owned
+{ id, name, user_id (FK), is_default, created_at }
+// Unique constraint: (name, user_id)
+
+// BudgetEntry — core transaction record
+{ id, user_id (FK), category_id (FK), amount (DECIMAL 12,2),
+  type (ENUM: income|expense), entry_date, description, created_at, updated_at }
+</code></pre>
+
+      <h3>Sample Code &mdash; JWT Auth Middleware</h3>
+      <pre><code>// server/src/middleware/auth.js
+const jwt = require('jsonwebtoken');
+
+module.exports = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Bearer &lt;token&gt;
+
+  if (!token) {
+    return res.status(401).json({
+      error: { code: 'MISSING_TOKEN', message: 'Authentication required.' }
+    });
+  }
+
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = payload.userId;
+    next();
+  } catch (err) {
+    return res.status(401).json({
+      error: { code: 'INVALID_TOKEN', message: 'Token is invalid or expired.' }
+    });
+  }
+};</code></pre>
+
+      <h3>Sample Code &mdash; Budget Entry Filter Query</h3>
+      <pre><code>// server/src/services/budgetService.js (getEntries)
+const { Op } = require('sequelize');
+
+async function getEntries(userId, { startDate, endDate, categoryId, type }) {
+  const where = { user_id: userId };
+
+  if (startDate) where.entry_date = { [Op.gte]: startDate };
+  if (endDate)   where.entry_date = { ...where.entry_date, [Op.lte]: endDate };
+  if (categoryId) where.category_id = categoryId;
+  if (type)       where.type = type;
+
+  return BudgetEntry.findAll({
+    where,
+    order: [['entry_date', 'DESC']],
+    include: [{ model: Category, attributes: ['name'] }]
+  });
+}</code></pre>
+
+      <h3>Testing Strategy</h3>
+      <div class="arch-box">
+        <ul>
+          <li><strong>Backend:</strong> Jest + Supertest for unit and integration tests; fast-check for 24 property-based correctness tests</li>
+          <li><strong>Frontend:</strong> Vitest + React Testing Library; @fast-check/vitest for chart data and filter logic properties</li>
+          <li><strong>Coverage targets:</strong> Service layer &ge;90%, Route handlers &ge;85%, Frontend utilities &ge;90%</li>
+          <li><strong>Test database:</strong> Separate PostgreSQL instance (<code>budget_tracker_test</code>), truncated between tests</li>
+        </ul>
+      </div>
 
       <h3>Screen Captures</h3>
-      <p><em>Screenshots will be added here once the project is complete.</em></p>
+      <p><em>Screenshots will be added once the project UI is complete.</em></p>
 
-      <h3>Sample Code</h3>
-      <p><em>Sample C# code snippets will be added here.</em></p>
-
-      <!-- Uncomment and update when ready:
-      <a href="projects/csharp/documentation.pdf" class="btn" target="_blank">Full Documentation (PDF)</a>
-      <a href="https://github.com/ToebyyBryant/your-csharp-repo" class="btn secondary" target="_blank">View on GitHub</a>
-      -->
+      <a href="https://github.com/ToebyyBryant/budget-tracker" class="btn secondary" target="_blank">View on GitHub &rarr;</a>
     </div>
 
     <!-- STC Curriculum Link -->
