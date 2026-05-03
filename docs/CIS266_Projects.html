@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CIS 266 Projects | Bruce Dean Schulz</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <h1>Bruce Dean Schulz</h1>
+    <p class="tagline">CIS Computer Programming Student &mdash; Southeast Technical College</p>
+  </header>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="CIS_ClassList.html">CIS Course List</a>
+    <a href="projects.html">Projects</a>
+    <a href="CIS241_Projects.html">CIS 241</a>
+    <a href="CIS266_Projects.html" class="active">CIS 266</a>
+    <a href="BruceSchulzResume.pdf" target="_blank">Resume</a>
+    <a href="http://catalog.southeasttech.edu/preview_program.php?catoid=17&poid=2004&hl=%22programming%22" target="_blank">STC CIS Curriculum</a>
+  </nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main>
+
+    <h2>CIS 266 &mdash; Web Services Projects</h2>
+    <p>
+      Representative samples from CIS 266 Web Services, covering RESTful AJAX/JSON/PHP/MySQL
+      dynamic services, WCF static services, and Scrum team projects.
+    </p>
+
+    <!-- ===== 1. Unit 2 Ex3 — RESTful AJAX-JSON-PHP-MySQL ===== -->
+    <h3>Dynamic &mdash; Unit 2 Exercise 3: RESTful AJAX-JSON-PHP-MySQL Web Service</h3>
+    <div class="card">
+      <div class="project-meta">
+        <span><strong>Course:</strong> CIS 266 &mdash; Web Services</span>
+        <span><strong>Type:</strong> Dynamic &mdash; RESTful Web Service</span>
+        <span><strong>Semester:</strong> Spring 2026</span>
+        <span><strong>Assignment:</strong> Unit2_Ex3</span>
+      </div>
+
+      <ul class="tech-tags">
+        <li>REST</li>
+        <li>AJAX</li>
+        <li>JSON</li>
+        <li>PHP</li>
+        <li>MySQL</li>
+        <li>JavaScript</li>
+        <li>HTML / CSS</li>
+      </ul>
+
+      <h3>Project Description</h3>
+      <p>
+        A dynamic RESTful web service built with PHP and MySQL, consumed by a JavaScript
+        front-end using AJAX calls that exchange JSON data. The service exposes endpoints
+        for reading and manipulating database records without page reloads.
+      </p>
+
+      <h3>Live Demo</h3>
+      <p>
+        <!-- Replace # with your actual hosted demo URL -->
+        <a href="#" class="btn" target="_blank">Launch Live Demo &rarr;</a>
+      </p>
+
+      <h3>Screen Captures</h3>
+      <p><em>Add screenshots here once the project is complete.</em></p>
+      <!--
+        <img src="projects/cis266/unit2ex3/screenshot1.png"
+             alt="Unit2 Ex3 - REST Service Demo"
+             style="max-width:100%; border-radius:6px; margin-bottom:1rem;" />
+      -->
+
+      <h3>Sample Code &mdash; PHP REST Endpoint</h3>
+      <pre><code>&lt;?php
+// api.php — simple RESTful endpoint example
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+
+$conn = new mysqli('localhost', 'user', 'pass', 'db');
+$method = $_SERVER['REQUEST_METHOD'];
+
+if ($method === 'GET') {
+    $result = $conn->query("SELECT * FROM items ORDER BY id DESC");
+    $rows = [];
+    while ($row = $result->fetch_assoc()) {
+        $rows[] = $row;
+    }
+    echo json_encode(['status' => 'success', 'data' => $rows]);
+
+} elseif ($method === 'POST') {
+    $data = json_decode(file_get_contents('php://input'), true);
+    $name = $conn->real_escape_string($data['name']);
+    $conn->query("INSERT INTO items (name) VALUES ('$name')");
+    echo json_encode(['status' => 'created', 'id' => $conn->insert_id]);
+}
+$conn->close();
+?&gt;</code></pre>
+
+      <a href="projects/cis266/unit2ex3/documentation.pdf" class="btn secondary" target="_blank">Full Documentation (PDF)</a>
+    </div>
+
+    <!-- ===== 2. Scrum 3 — Team CRUD JSON-PHP-MySQL RESTful ===== -->
+    <h3>Dynamic &mdash; Scrum 3 Team Project: Unique CRUD JSON-PHP-MySQL RESTful Web Service</h3>
+    <div class="card">
+      <div class="project-meta">
+        <span><strong>Course:</strong> CIS 266 &mdash; Web Services</span>
+        <span><strong>Type:</strong> Dynamic &mdash; Team CRUD RESTful Service</span>
+        <span><strong>Semester:</strong> Spring 2026</span>
+        <span><strong>Assignment:</strong> Scrum 3 Team Project</span>
+      </div>
+
+      <ul class="tech-tags">
+        <li>REST</li>
+        <li>CRUD</li>
+        <li>JSON</li>
+        <li>PHP</li>
+        <li>MySQL</li>
+        <li>JavaScript</li>
+        <li>Scrum / Agile</li>
+      </ul>
+
+      <h3>Project Description</h3>
+      <p>
+        A team-built RESTful web service implementing full CRUD (Create, Read, Update, Delete)
+        operations using JSON, PHP, and MySQL. Developed using Scrum methodology with sprint
+        planning, daily standups, and a product backlog.
+      </p>
+
+      <h3>Live Demo</h3>
+      <p>
+        <!-- Replace # with your actual hosted demo URL -->
+        <a href="#" class="btn" target="_blank">Launch Live Demo &rarr;</a>
+      </p>
+
+      <h3>Screen Captures</h3>
+      <p><em>Add screenshots here once the project is complete.</em></p>
+
+      <h3>Sample Code &mdash; CRUD Update Endpoint</h3>
+      <pre><code>&lt;?php
+// PUT /api/items/:id — update a record
+header('Content-Type: application/json');
+$conn = new mysqli('localhost', 'user', 'pass', 'db');
+
+$id   = intval($_GET['id']);
+$data = json_decode(file_get_contents('php://input'), true);
+$name = $conn->real_escape_string($data['name']);
+
+$conn->query("UPDATE items SET name='$name' WHERE id=$id");
+
+if ($conn->affected_rows > 0) {
+    echo json_encode(['status' => 'updated']);
+} else {
+    http_response_code(404);
+    echo json_encode(['status' => 'not found']);
+}
+$conn->close();
+?&gt;</code></pre>
+
+      <a href="projects/cis266/scrum3/documentation.pdf" class="btn secondary" target="_blank">Full Documentation (PDF)</a>
+    </div>
+
+    <!-- ===== 3. Unit 3 — Static WCF Project ===== -->
+    <h3>Static &mdash; Unit 3: WCF Web Service Project</h3>
+    <div class="card">
+      <div class="project-meta">
+        <span><strong>Course:</strong> CIS 266 &mdash; Web Services</span>
+        <span><strong>Type:</strong> Static &mdash; WCF Service</span>
+        <span><strong>Semester:</strong> Spring 2026</span>
+        <span><strong>Assignment:</strong> Unit 3 WCF Project</span>
+      </div>
+
+      <ul class="tech-tags">
+        <li>WCF</li>
+        <li>C#</li>
+        <li>.NET</li>
+        <li>SOAP / WSDL</li>
+        <li>Visual Studio</li>
+      </ul>
+
+      <h3>Project Description</h3>
+      <p>
+        A Windows Communication Foundation (WCF) web service built with C# and .NET.
+        The service exposes a contract-based interface consumed by a client application,
+        demonstrating SOAP-based service communication and service/data contract definitions.
+      </p>
+
+      <h3>Screen Captures</h3>
+      <p><em>Add screenshots here once the project is complete.</em></p>
+      <!--
+        <img src="projects/cis266/unit3wcf/screenshot1.png"
+             alt="Unit3 WCF - Service Test"
+             style="max-width:100%; border-radius:6px; margin-bottom:1rem;" />
+      -->
+
+      <h3>Sample Code &mdash; WCF Service Contract</h3>
+      <pre><code>// IMyService.cs — Service Contract
+[ServiceContract]
+public interface IMyService
+{
+    [OperationContract]
+    string GetMessage(string name);
+
+    [OperationContract]
+    List&lt;Item&gt; GetAllItems();
+}
+
+// MyService.svc.cs — Implementation
+public class MyService : IMyService
+{
+    public string GetMessage(string name)
+    {
+        return $"Hello, {name}! Welcome to the WCF service.";
+    }
+
+    public List&lt;Item&gt; GetAllItems()
+    {
+        // Return data from database or static list
+        return ItemRepository.GetAll();
+    }
+}</code></pre>
+
+      <a href="projects/cis266/unit3wcf/documentation.pdf" class="btn secondary" target="_blank">Full Documentation (PDF)</a>
+    </div>
+
+    <!-- ===== 4. Scrum 4 — Static Team Project Videos ===== -->
+    <h3>Static &mdash; Scrum 4 Team Project: Presentation &amp; Demo Videos</h3>
+    <div class="card">
+      <div class="project-meta">
+        <span><strong>Course:</strong> CIS 266 &mdash; Web Services</span>
+        <span><strong>Type:</strong> Static &mdash; Team Presentation &amp; Demo</span>
+        <span><strong>Semester:</strong> Spring 2026</span>
+        <span><strong>Assignment:</strong> Scrum 4 Team Project</span>
+      </div>
+
+      <ul class="tech-tags">
+        <li>Scrum / Agile</li>
+        <li>Team Project</li>
+        <li>Presentation</li>
+        <li>Demo Video</li>
+      </ul>
+
+      <h3>Project Description</h3>
+      <p>
+        A team-based Scrum 4 project culminating in a formal presentation and recorded demo video.
+        Includes presentation slides covering project architecture, sprint retrospectives,
+        and a live walkthrough of the completed web service.
+      </p>
+
+      <h3>Presentation Slides</h3>
+      <p>
+        <!-- Replace # with your actual slides file or link -->
+        <a href="projects/cis266/scrum4/presentation.pdf" class="btn" target="_blank">View Presentation Slides (PDF)</a>
+      </p>
+
+      <h3>Demo Video</h3>
+      <p>
+        <!-- Replace # with your actual video link (YouTube, OneDrive, etc.) -->
+        <a href="#" class="btn" target="_blank">Watch Demo Video &rarr;</a>
+      </p>
+
+      <h3>Screen Captures</h3>
+      <p><em>Add screenshots from the presentation or demo here.</em></p>
+      <!--
+        <img src="projects/cis266/scrum4/screenshot1.png"
+             alt="Scrum 4 - Team Presentation"
+             style="max-width:100%; border-radius:6px; margin-bottom:1rem;" />
+      -->
+    </div>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p>&copy; 2026 Bruce Dean Schulz &nbsp;|&nbsp;
+      <a href="https://github.com/ToebyyBryant" target="_blank">GitHub</a> &nbsp;|&nbsp;
+      Southeast Technical College
+    </p>
+  </footer>
+
+</body>
+</html>

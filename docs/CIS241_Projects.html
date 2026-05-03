@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CIS 241 Projects | Bruce Dean Schulz</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <h1>Bruce Dean Schulz</h1>
+    <p class="tagline">CIS Computer Programming Student &mdash; Southeast Technical College</p>
+  </header>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="CIS_ClassList.html">CIS Course List</a>
+    <a href="projects.html">Projects</a>
+    <a href="CIS241_Projects.html" class="active">CIS 241</a>
+    <a href="CIS266_Projects.html">CIS 266</a>
+    <a href="BruceSchulzResume.pdf" target="_blank">Resume</a>
+    <a href="http://catalog.southeasttech.edu/preview_program.php?catoid=17&poid=2004&hl=%22programming%22" target="_blank">STC CIS Curriculum</a>
+  </nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main>
+
+    <h2>CIS 241 &mdash; Dynamic Web Development Projects</h2>
+    <p>
+      Representative samples from CIS 241 Dynamic Web Development, demonstrating PHP, MySQL,
+      and dynamic page generation. At least one project includes a live working database demo.
+    </p>
+
+    <div class="placeholder-notice">
+      &#9432; Add your project demo links, screenshots, and descriptions below.
+      Upload demo files to the <code>projects/cis241/</code> folder on your server.
+    </div>
+
+    <!-- ===== PROJECT 1 — DB PHP/MySQL Demo ===== -->
+    <h3>Project 1 &mdash; Dynamic Database Demo (PHP / MySQL)</h3>
+    <div class="card">
+      <div class="project-meta">
+        <span><strong>Course:</strong> CIS 241 &mdash; Dynamic Web Development</span>
+        <span><strong>Semester:</strong> Fall / Summer 2025</span>
+        <span><strong>Type:</strong> Dynamic &mdash; PHP + MySQL</span>
+        <span><strong>Status:</strong> <em>Add demo link when ready</em></span>
+      </div>
+
+      <ul class="tech-tags">
+        <li>PHP</li>
+        <li>MySQL</li>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+      </ul>
+
+      <h3>Project Description</h3>
+      <p>
+        <em>Describe what this project does — e.g., a product catalog, student records system,
+        or similar dynamic page that reads from and writes to a MySQL database using PHP.</em>
+      </p>
+
+      <h3>Live Demo</h3>
+      <p>
+        <!-- Replace # with your actual demo URL once hosted -->
+        <a href="#" class="btn" target="_blank">Launch Live Demo &rarr;</a>
+      </p>
+
+      <h3>Screen Captures</h3>
+      <p><em>Add screenshots here. Example:</em></p>
+      <!--
+        <img src="projects/cis241/project1/screenshot1.png"
+             alt="CIS 241 Project 1 - Main Page"
+             style="max-width:100%; border-radius:6px; margin-bottom:1rem;" />
+      -->
+
+      <h3>Sample Code &mdash; PHP / MySQL Connection &amp; Query</h3>
+      <pre><code>&lt;?php
+// db_connect.php — replace credentials with your own
+$host = 'localhost';
+$db   = 'your_database';
+$user = 'your_username';
+$pass = 'your_password';
+
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    die('Connection failed: ' . $conn->connect_error);
+}
+
+// Example: fetch all records from a table
+$result = $conn->query("SELECT * FROM your_table ORDER BY id DESC");
+while ($row = $result->fetch_assoc()) {
+    echo "&lt;p&gt;" . htmlspecialchars($row['column_name']) . "&lt;/p&gt;";
+}
+$conn->close();
+?&gt;</code></pre>
+
+      <a href="projects/cis241/project1/documentation.pdf" class="btn secondary" target="_blank">Full Documentation (PDF)</a>
+    </div>
+
+    <!-- ===== PROJECT 2 (optional additional project) ===== -->
+    <h3>Project 2 &mdash; Additional Dynamic Project <em>(Optional)</em></h3>
+    <div class="card">
+      <div class="project-meta">
+        <span><strong>Course:</strong> CIS 241 &mdash; Dynamic Web Development</span>
+        <span><strong>Type:</strong> Dynamic &mdash; PHP + MySQL</span>
+      </div>
+
+      <ul class="tech-tags">
+        <li>PHP</li>
+        <li>MySQL</li>
+        <li>HTML</li>
+        <li>CSS</li>
+      </ul>
+
+      <p><em>Add a second CIS 241 project here if desired. Include description, demo link, screenshots, and sample code.</em></p>
+
+      <a href="#" class="btn" target="_blank">Launch Live Demo &rarr;</a>
+    </div>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p>&copy; 2026 Bruce Dean Schulz &nbsp;|&nbsp;
+      <a href="https://github.com/ToebyyBryant" target="_blank">GitHub</a> &nbsp;|&nbsp;
+      Southeast Technical College
+    </p>
+  </footer>
+
+</body>
+</html>
