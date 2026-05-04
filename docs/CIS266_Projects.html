@@ -119,26 +119,7 @@
         <!-- Update href with your hosted URL once deployed -->
         <a href="https://schulz-portfolio.unaux.com/CIS241/schb_unit2_ex3" class="btn" target="_blank">Launch Live Demo &rarr;</a>
       </p>
-
-      <h3>Screen Captures</h3>
-      <p><strong>Index Page &mdash; schb_unit2_ex3 HOME Page</strong></p>
-      <p><em>5 navigation links: Run all testers, Display single record (innerHTML), Display all records (innerHTML), Test schb_Students_API (raw JSON), Test schb_SelectOne_API (raw JSON).</em></p>
-
-      <p><strong>Run All Testers</strong></p>
-      <p><em>Procedural tester confirms connection (hostName=localhost, databaseName=students), runs SHOW DATABASES (lists app, information_schema, mysql, students, etc.), SHOW TABLES (schb_students), and SELECT * returning all 5 records. OOP tester confirms selectOne() returns result for student id=1.</em></p>
-
-      <p><strong>Display Single Student Record (AJAJ innerHTML)</strong></p>
-      <p><em>Before: Student ID input field with Submit button, empty Message Contents area. After: Student ID=2 submitted → "Record found: 2 Bob Martinez Information Technology 3.42"</em></p>
-
-      <p><strong>Display All Student Records (AJAJ innerHTML)</strong></p>
-      <p><em>Submit button returns all 5 records: "Number of records returned = 5" followed by each student on a new line.</em></p>
-
-      <p><strong>Test schb_Students_API (Raw JSON)</strong></p>
-      <p><em>Tester page with "Click to test schb_Students_API" link; raw JSON output shows full array of all 5 student records.</em></p>
-
-      <p><strong>Test schb_SelectOne_API (Raw JSON)</strong></p>
-      <p><em>Student ID input form; querying id=3 returns raw JSON: <code>{"record":"3 Carol Williams Cybersecurity 3.91","status":"found"}</code></em></p>
-
+      
       <h3>Sample Code &mdash; schb_Students_API.php (RESTful Provider)</h3>
       <pre><code>&lt;?php
 // ServiceProvider/schb_Students_API.php
