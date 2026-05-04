@@ -228,32 +228,60 @@ public class MyService : IMyService
     </div>
 
     <!-- ===== 4. Scrum 4 — Static Team Project Videos ===== -->
-    <h3>Static &mdash; Scrum 4 Team Project: Presentation &amp; Demo Videos</h3>
+    <h3>Static &mdash; Scrum 4 Team Project: Real-Time Voting App</h3>
     <div class="card">
       <div class="project-meta">
         <span><strong>Course:</strong> CIS 266 &mdash; Web Services</span>
         <span><strong>Type:</strong> Static &mdash; Team Presentation &amp; Demo</span>
         <span><strong>Semester:</strong> Spring 2026</span>
-        <span><strong>Assignment:</strong> Scrum 4 Team Project</span>
+        <span><strong>Assignment:</strong> Scrum 4 &mdash; Team 52</span>
+        <span><strong>Team:</strong> Zach Kahler, Nova Denton-Parry, Bruce Schulz</span>
+        <span><strong>Instructor:</strong> Huda Judeh</span>
       </div>
 
       <ul class="tech-tags">
+        <li>Node.js</li>
+        <li>Socket.IO</li>
+        <li>WebSockets</li>
+        <li>Bootstrap 5</li>
+        <li>HTML / CSS</li>
+        <li>JavaScript</li>
         <li>Scrum / Agile</li>
-        <li>Team Project</li>
-        <li>Presentation</li>
-        <li>Demo Video</li>
       </ul>
 
       <h3>Project Description</h3>
       <p>
-        A team-based Scrum 4 project culminating in a formal presentation and recorded demo video.
-        Includes presentation slides covering project architecture, sprint retrospectives,
-        and a live walkthrough of the completed web service.
+        A real-time voting web application built with Node.js and Socket.IO. Multiple users can
+        simultaneously vote on a preferred free-time activity, with live vote results pushed to
+        all connected clients instantly via WebSockets — no page refresh required.
       </p>
+
+      <h3>Key Features</h3>
+      <div class="arch-box">
+        <ul>
+          <li>Real-time vote updates via Socket.IO broadcast to all connected clients</li>
+          <li>Multi-tab simultaneous voting — all tabs update live</li>
+          <li>Duplicate-vote prevention — submit button disabled after voting</li>
+          <li>Admin reset functionality — clears all vote counters across all clients instantly</li>
+          <li>Event-driven architecture: <code>vote</code> &rarr; server increments &rarr; <code>io.emit('update')</code> &rarr; DOM re-renders</li>
+          <li>Voting activities: Video Games, Reading, Crafty Hobbies, Physical Activity, Board Games</li>
+        </ul>
+      </div>
+
+      <h3>Architecture</h3>
+      <div class="arch-box">
+        <strong>3-Tier Real-Time Event-Driven Flow</strong>
+        <ul>
+          <li><strong>Client</strong> (<code>app.js / index.html</code>) &harr; <strong>Socket.IO ws:// layer</strong> &harr; <strong>Server</strong> (<code>server/index.js</code>)</li>
+          <li>On connect: Server emits current vote totals to the new socket</li>
+          <li>On <code>vote</code> event: Server increments the correct counter; <code>io.emit</code> broadcasts to all clients</li>
+          <li>On <code>reset</code> event: Server zeroes all counters; <code>io.emit</code> clears all clients</li>
+          <li>Client <code>update</code> handler: Re-renders emoji counters live — no page reload</li>
+        </ul>
+      </div>
 
       <h3>Presentation Slides</h3>
       <p>
-        <!-- Replace # with your actual slides file or link -->
         <a href="syllabi/Scrum4_Team_52_PP.pdf" class="btn" target="_blank">View Presentation Slides (PDF)</a>
       </p>
 
