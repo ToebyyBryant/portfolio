@@ -104,64 +104,142 @@ $conn->close();
       <a href="projects/cis266/unit2ex3/documentation.pdf" class="btn secondary" target="_blank">Full Documentation (PDF)</a>
     </div>
 
-    <!-- ===== 2. Scrum 3 — Team CRUD JSON-PHP-MySQL RESTful ===== -->
-    <h3>Dynamic &mdash; Scrum 3 Team Project: Unique CRUD JSON-PHP-MySQL RESTful Web Service</h3>
+    <!-- ===== 2. Unit 1 Ex4 / Scrum 3 — Sailboat RESTful PHP Web Service ===== -->
+    <h3>Dynamic &mdash; Unit 1 Ex4: Sailboat RESTful AJAX-JSON-PHP Web Service</h3>
     <div class="card">
       <div class="project-meta">
         <span><strong>Course:</strong> CIS 266 &mdash; Web Services</span>
-        <span><strong>Type:</strong> Dynamic &mdash; Team CRUD RESTful Service</span>
+        <span><strong>Type:</strong> Dynamic &mdash; RESTful PHP Web Service</span>
         <span><strong>Semester:</strong> Spring 2026</span>
-        <span><strong>Assignment:</strong> Scrum 3 Team Project</span>
+        <span><strong>Assignment:</strong> Unit 1 Lesson Plan 4 (SchB-Unit1-Ex4)</span>
+        <span><strong>Author:</strong> Bruce Schulz</span>
+        <span><strong>Date:</strong> February 11, 2026</span>
       </div>
 
       <ul class="tech-tags">
-        <li>REST</li>
-        <li>CRUD</li>
-        <li>JSON</li>
         <li>PHP</li>
-        <li>MySQL</li>
-        <li>JavaScript</li>
-        <li>Scrum / Agile</li>
+        <li>REST</li>
+        <li>JSON</li>
+        <li>AJAX</li>
+        <li>HTML / CSS</li>
+        <li>OOP / Classes</li>
+        <li>MVC-style Architecture</li>
+        <li>WAMP / localhost</li>
       </ul>
 
       <h3>Project Description</h3>
       <p>
-        A team-built RESTful web service implementing full CRUD (Create, Read, Update, Delete)
-        operations using JSON, PHP, and MySQL. Developed using Scrum methodology with sprint
-        planning, daily standups, and a product backlog.
+        A PHP RESTful web service built around a <code>Sailboat</code> OOP class, a
+        <code>SailboatDB</code> database emulator, and a <code>SailboatAPI</code> application
+        interface layer — modeled after the Unit 1 Ex3 Product/ProductDB/API pattern.
+        The service is consumed by two clients: a <code>SailboatAPI_Tester.php</code> page
+        for direct class testing, and a full <strong>Sailboat RESTful Client</strong> HTML page
+        that queries the service via AJAX and displays results in a formatted table.
       </p>
+
+      <h3>Architecture &amp; Components</h3>
+      <div class="arch-box">
+        <ul>
+          <li><strong>Sailboat.php</strong> — OOP class with private properties (<code>$boatName</code>, <code>$ownerName</code>, <code>$numberOfSails</code>, <code>$price</code>), default constructor, getters/setters, and a <code>getFormattedPrice()</code> method returning a formatted currency string</li>
+          <li><strong>SailboatDB.php</strong> — Database emulator with <code>getSailboat($name)</code> method; includes 5+ boats (Windchaser, Sunset, Horizon, Ocean's Dream, SeaBreeze); returns "Unknown Sailboat" for unrecognized names</li>
+          <li><strong>SailboatAPI.php</strong> — RESTful API interface exposing a default constructor and a method that accepts a sailboat name string, calls <code>SailboatDB::getSailboat()</code>, and returns the JSON-encoded result</li>
+          <li><strong>SailboatAPI_Tester.php</strong> — Simple PHP tester page with a form input and "Test SailboatDB API" button; displays raw result fields (Boat Name, Owner Name, Number of Sails, Price, Formatted Price)</li>
+          <li><strong>Sailboat_Client.html</strong> — Full RESTful client with styled table output; accepts a sailboat name, calls the PHP provider via AJAX, and renders a <em>Sailboat Information</em> table with Property/Value columns</li>
+        </ul>
+      </div>
+
+      <h3>Key Features</h3>
+      <div class="arch-box">
+        <ul>
+          <li>OOP PHP class with private fields, default constructor, and full getter/setter methods</li>
+          <li>DB emulator returns a populated <code>Sailboat</code> object for valid names, or an "Unknown Sailboat" default object for invalid input</li>
+          <li>RESTful provider returns JSON; client consumes it via AJAX without page reload</li>
+          <li>Tested with valid boats: <strong>Windchaser</strong> (John Smith, 3 sails, $45,000), <strong>Sunset</strong> (Michael Brown, 2 sails, $28,000), <strong>Horizon</strong> (Robert Davis, 4 sails, $62,500)</li>
+          <li>Invalid name handling: "Sea Breeze" returns Unknown Sailboat / Unknown Owner / 0 sails / $0.00</li>
+        </ul>
+      </div>
 
       <h3>Live Demo</h3>
       <p>
-        <!-- Replace # with your actual hosted demo URL -->
-        <a href="#" class="btn" target="_blank">Launch Live Demo &rarr;</a>
+        <!-- Update href with your hosted URL once deployed -->
+        <a href="https://schulz-portfolio.unaux.com/CIS241/SchB_Unit1_Ex4/" class="btn" target="_blank">Launch Live Demo &rarr;</a>
       </p>
 
-      <h3>Screen Captures</h3>
-      <p><em>Add screenshots here once the project is complete.</em></p>
-
-      <h3>Sample Code &mdash; CRUD Update Endpoint</h3>
+      <h3>Sample Code &mdash; Sailboat.php (OOP Class)</h3>
       <pre><code>&lt;?php
-// PUT /api/items/:id — update a record
-header('Content-Type: application/json');
-$conn = new mysqli('localhost', 'user', 'pass', 'db');
+class Sailboat {
+    private $boatName;
+    private $ownerName;
+    private $numberOfSails;
+    private $price;
 
-$id   = intval($_GET['id']);
-$data = json_decode(file_get_contents('php://input'), true);
-$name = $conn->real_escape_string($data['name']);
+    // Default constructor
+    public function __construct() {
+        $this-&gt;boatName      = '';
+        $this-&gt;ownerName     = '';
+        $this-&gt;numberOfSails = 0;
+        $this-&gt;price         = 0;
+    }
 
-$conn->query("UPDATE items SET name='$name' WHERE id=$id");
+    // Getters
+    public function getBoatName()      { return $this-&gt;boatName; }
+    public function getOwnerName()     { return $this-&gt;ownerName; }
+    public function getNumberOfSails() { return $this-&gt;numberOfSails; }
+    public function getPrice()         { return $this-&gt;price; }
 
-if ($conn->affected_rows > 0) {
-    echo json_encode(['status' => 'updated']);
-} else {
-    http_response_code(404);
-    echo json_encode(['status' => 'not found']);
+    // Setters
+    public function setBoatName($n)      { $this-&gt;boatName = $n; }
+    public function setOwnerName($n)     { $this-&gt;ownerName = $n; }
+    public function setNumberOfSails($n) { $this-&gt;numberOfSails = $n; }
+    public function setPrice($p)         { $this-&gt;price = $p; }
+
+    // Returns formatted currency string
+    public function getFormattedPrice(): string {
+        return '$' . number_format($this-&gt;price, 2);
+    }
 }
-$conn->close();
 ?&gt;</code></pre>
 
-      <a href="projects/cis266/scrum3/documentation.pdf" class="btn secondary" target="_blank">Full Documentation (PDF)</a>
+      <h3>Sample Code &mdash; SailboatDB.php (DB Emulator)</h3>
+      <pre><code>&lt;?php
+require_once 'Sailboat.php';
+
+class SailboatDB {
+    public function getSailboat($name): Sailboat {
+        $boat = new Sailboat();
+
+        switch (strtolower(trim($name))) {
+            case 'windchaser':
+                $boat-&gt;setBoatName('Windchaser');
+                $boat-&gt;setOwnerName('John Smith');
+                $boat-&gt;setNumberOfSails(3);
+                $boat-&gt;setPrice(45000);
+                break;
+            case 'sunset':
+                $boat-&gt;setBoatName('Sunset');
+                $boat-&gt;setOwnerName('Michael Brown');
+                $boat-&gt;setNumberOfSails(2);
+                $boat-&gt;setPrice(28000);
+                break;
+            case 'horizon':
+                $boat-&gt;setBoatName('Horizon');
+                $boat-&gt;setOwnerName('Robert Davis');
+                $boat-&gt;setNumberOfSails(4);
+                $boat-&gt;setPrice(62500);
+                break;
+            // ... additional boats
+            default:
+                $boat-&gt;setBoatName('Unknown Sailboat');
+                $boat-&gt;setOwnerName('Unknown Owner');
+                $boat-&gt;setNumberOfSails(0);
+                $boat-&gt;setPrice(0);
+        }
+        return $boat;
+    }
+}
+?&gt;</code></pre>
+
+      <a href="syllabi/SchB_Unit1_Ex4.pdf" class="btn secondary" target="_blank">Full Documentation (PDF)</a>
     </div>
 
     <!-- ===== 3. Unit 3 — Static WCF Project ===== -->
