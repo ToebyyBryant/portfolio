@@ -165,13 +165,15 @@ $conn->close();
     </div>
 
     <!-- ===== 3. Unit 3 — Static WCF Project ===== -->
-    <h3>Static &mdash; Unit 3: WCF Web Service Project</h3>
+    <h3>Static &mdash; Unit 3: WCF Web Calculator Service</h3>
     <div class="card">
       <div class="project-meta">
         <span><strong>Course:</strong> CIS 266 &mdash; Web Services</span>
         <span><strong>Type:</strong> Static &mdash; WCF Service</span>
         <span><strong>Semester:</strong> Spring 2026</span>
         <span><strong>Assignment:</strong> Unit 3 WCF Project</span>
+        <span><strong>Author:</strong> Bruce Schulz</span>
+        <span><strong>Date:</strong> April 7, 2026</span>
       </div>
 
       <ul class="tech-tags">
@@ -180,51 +182,118 @@ $conn->close();
         <li>.NET</li>
         <li>SOAP / WSDL</li>
         <li>Visual Studio</li>
+        <li>WCF Test Client</li>
+        <li>Console App</li>
+        <li>BasicHttpBinding</li>
       </ul>
 
       <h3>Project Description</h3>
       <p>
-        A Windows Communication Foundation (WCF) web service built with C# and .NET.
-        The service exposes a contract-based interface consumed by a client application,
-        demonstrating SOAP-based service communication and service/data contract definitions.
+        A Windows Communication Foundation (WCF) web service implementing a calculator with
+        four arithmetic operations: Addition, Subtraction, Multiplication, and Division.
+        The service is hosted via <code>BasicHttpBinding</code> at
+        <code>localhost:55307/Service1.svc</code> and exposes both synchronous and asynchronous
+        operation contracts (<code>Add()</code>, <code>AddAsync()</code>, etc.) for each operation.
+      </p>
+      <p>
+        The project includes two clients: the built-in <strong>WCF Test Client</strong> for
+        testing the SOAP service directly, and a <strong>C# Console App</strong> that consumes
+        the service and prompts the user to choose an operation and enter two numbers.
+        All four operations were tested and verified.
       </p>
 
-      <h3>Screen Captures</h3>
-      <p><em>Add screenshots here once the project is complete.</em></p>
-      <!--
-        <img src="projects/cis266/unit3wcf/screenshot1.png"
-             alt="Unit3 WCF - Service Test"
-             style="max-width:100%; border-radius:6px; margin-bottom:1rem;" />
-      -->
+      <h3>Key Features</h3>
+      <div class="arch-box">
+        <ul>
+          <li>WCF service with <code>IService1</code> contract exposing Add, Subtract, Multiply, Divide operations</li>
+          <li>Both synchronous and async operation contracts generated automatically</li>
+          <li>Tested via WCF Test Client — inputs two <code>System.Double</code> values, returns <code>System.Double</code> result</li>
+          <li>Service description accessible in browser at <code>localhost:55307/Service1.svc</code></li>
+          <li>Console App client prompts user to choose operation (1–4) and enter two numbers</li>
+          <li>All four arithmetic functions tested and confirmed working</li>
+        </ul>
+      </div>
 
       <h3>Sample Code &mdash; WCF Service Contract</h3>
-      <pre><code>// IMyService.cs — Service Contract
+      <pre><code>// IService1.cs — Service Contract
 [ServiceContract]
-public interface IMyService
+public interface IService1
 {
     [OperationContract]
-    string GetMessage(string name);
+    double Add(double a, double b);
 
     [OperationContract]
-    List&lt;Item&gt; GetAllItems();
+    double Subtract(double a, double b);
+
+    [OperationContract]
+    double Multiply(double a, double b);
+
+    [OperationContract]
+    double Divide(double a, double b);
 }
 
-// MyService.svc.cs — Implementation
-public class MyService : IMyService
+// Service1.svc.cs — Implementation
+public class Service1 : IService1
 {
-    public string GetMessage(string name)
-    {
-        return $"Hello, {name}! Welcome to the WCF service.";
-    }
-
-    public List&lt;Item&gt; GetAllItems()
-    {
-        // Return data from database or static list
-        return ItemRepository.GetAll();
-    }
+    public double Add(double a, double b)      =&gt; a + b;
+    public double Subtract(double a, double b) =&gt; a - b;
+    public double Multiply(double a, double b) =&gt; a * b;
+    public double Divide(double a, double b)   =&gt; a / b;
 }</code></pre>
 
-      <a href="projects/cis266/unit3wcf/documentation.pdf" class="btn secondary" target="_blank">Full Documentation (PDF)</a>
+      <h3>Sample Code &mdash; Console App Client</h3>
+      <pre><code>// Program.cs — Console App consuming the WCF service
+static void Main(string[] args)
+{
+    ServiceReference1.Service1Client client = new ServiceReference1.Service1Client();
+
+    Console.WriteLine("Choose equation type:");
+    Console.WriteLine("1. Addition\n2. Subtraction\n3. Multiplication\n4. Division");
+    Console.Write("Enter choice (1-4): ");
+    int choice = int.Parse(Console.ReadLine());
+
+    Console.Write("Enter first number: ");
+    double a = double.Parse(Console.ReadLine());
+    Console.Write("Enter second number: ");
+    double b = double.Parse(Console.ReadLine());
+
+    double result = choice switch
+    {
+        1 =&gt; client.Add(a, b),
+        2 =&gt; client.Subtract(a, b),
+        3 =&gt; client.Multiply(a, b),
+        4 =&gt; client.Divide(a, b),
+        _ =&gt; throw new ArgumentException("Invalid choice")
+    };
+
+    Console.WriteLine($"Result: {result}");
+    client.Close();
+    Console.WriteLine("Press any key to exit...");
+    Console.ReadKey();
+}</code></pre>
+
+      <h3>Screen Captures</h3>
+      <p><strong>WCF Test Client &mdash; Add (12 + 13 = 25)</strong></p>
+      <p><em>Test Client showing Add operation: a=12, b=13 → return: 25 (System.Double)</em></p>
+
+      <p><strong>WCF Test Client &mdash; Subtract (15 &minus; 5 = 10) &amp; Multiply (15 &times; 5 = 75)</strong></p>
+      <p><em>Subtract: a=15, b=5 → return: 10 &nbsp;|&nbsp; Multiply: a=15, b=5 → return: 75</em></p>
+
+      <p><strong>WCF Test Client &mdash; Divide (15 &divide; 5 = 3)</strong></p>
+      <p><em>Divide: a=15, b=5 → return: 3 (System.Double) — Service invocation completed.</em></p>
+
+      <p><strong>Service1 running in Chrome</strong></p>
+      <p><em>Service description page at <code>localhost:55307/Service1.svc</code> showing the BasicHttpBinding endpoint and sample C# / VB client code.</em></p>
+
+      <p><strong>Console App &mdash; Multiplication (15 &times; 5 = 75)</strong></p>
+      <p><em>Console prompts for operation choice (3 = Multiplication), first number: 15, second number: 5 → Result: 75</em></p>
+
+      <div class="placeholder-notice">
+        &#9432; Upload <code>WebCalculator-Bruce Schulz.pdf</code> to the
+        <code>syllabi/</code> folder to enable the documentation link below.
+      </div>
+
+      <a href="syllabi/WebCalculator_BruceSchulz.pdf" class="btn secondary" target="_blank">Full Documentation (PDF)</a>
     </div>
 
     <!-- ===== 4. Scrum 4 — Static Team Project Videos ===== -->
@@ -297,14 +366,6 @@ public class MyService : IMyService
           allowfullscreen>
         </iframe>
       </div>
-
-      <h3>Screen Captures</h3>
-      <p><em>Add screenshots from the presentation or demo here.</em></p>
-      <!--
-        <img src="projects/cis266/scrum4/screenshot1.png"
-             alt="Scrum 4 - Team Presentation"
-             style="max-width:100%; border-radius:6px; margin-bottom:1rem;" />
-      -->
     </div>
 
   </main>
