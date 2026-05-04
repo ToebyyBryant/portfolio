@@ -35,73 +35,175 @@
     </p>
 
     <!-- ===== 1. Unit 2 Ex3 — RESTful AJAX-JSON-PHP-MySQL ===== -->
-    <h3>Dynamic &mdash; Unit 2 Exercise 3: RESTful AJAX-JSON-PHP-MySQL Web Service</h3>
+    <h3>Dynamic &mdash; Unit 2 Exercise 3: AJAJ/PHP RESTful MySQL DB Web Service</h3>
     <div class="card">
       <div class="project-meta">
         <span><strong>Course:</strong> CIS 266 &mdash; Web Services</span>
-        <span><strong>Type:</strong> Dynamic &mdash; RESTful Web Service</span>
+        <span><strong>Type:</strong> Dynamic &mdash; RESTful AJAJ/PHP/MySQL Web Service</span>
         <span><strong>Semester:</strong> Spring 2026</span>
-        <span><strong>Assignment:</strong> Unit2_Ex3</span>
+        <span><strong>Assignment:</strong> Unit 2 Lesson Plan 3 (schb_unit2_ex3)</span>
+        <span><strong>Author:</strong> Bruce Schulz</span>
+        <span><strong>Date:</strong> March 22, 2026</span>
       </div>
 
       <ul class="tech-tags">
-        <li>REST</li>
-        <li>AJAX</li>
-        <li>JSON</li>
         <li>PHP</li>
         <li>MySQL</li>
+        <li>AJAJ / AJAX</li>
+        <li>JSON</li>
         <li>JavaScript</li>
         <li>HTML / CSS</li>
+        <li>RESTful API</li>
+        <li>OOP Classes</li>
+        <li>WAMP / localhost</li>
       </ul>
 
       <h3>Project Description</h3>
       <p>
-        A dynamic RESTful web service built with PHP and MySQL, consumed by a JavaScript
-        front-end using AJAX calls that exchange JSON data. The service exposes endpoints
-        for reading and manipulating database records without page reloads.
+        A full AJAJ (Asynchronous JavaScript and JSON) RESTful web service built on top of a
+        MySQL student records database. Converted from a Unit 2 Ex2 web app into a proper
+        service/client architecture with separate <code>ServiceProvider</code> and
+        <code>ServiceClient</code> folders, modeled after the MurachDB_Sample3 pattern.
       </p>
+      <p>
+        The project includes an index page with navigation links, two AJAJ web service clients
+        (single record and all records via <code>innerHTML</code>), and two additional raw JSON
+        API testers for direct service verification.
+      </p>
+
+      <h3>Architecture &amp; Components</h3>
+      <div class="arch-box">
+        <strong>Folder Structure</strong>
+        <ul>
+          <li><code>schb_unit2_ex3/</code> — Root with <code>index.html</code> home page</li>
+          <li><code>ServiceProvider/class_lib/</code> — PHP classes: <code>schb_Students_API.php</code>, <code>schb_SelectOne_API.php</code>, DB connection</li>
+          <li><code>ServiceProvider/</code> — RESTful provider endpoints returning raw JSON</li>
+          <li><code>ServiceClient/</code> — HTML/JS AJAJ clients consuming the service via <code>innerHTML</code></li>
+        </ul>
+        <br/>
+        <strong>Index Page Links (schb_unit2_ex3 HOME Page)</strong>
+        <ul>
+          <li>1. Run all Web Service Testers</li>
+          <li>2. Display a Single Student Record using AJAJ Web Service (innerHTML)</li>
+          <li>3. Display All Student Records using AJAJ Web Service (innerHTML)</li>
+          <li>4. Test schb_Students_API (view raw JSON for all records)</li>
+          <li>5. Test schb_SelectOne_API (view raw JSON for a single record)</li>
+        </ul>
+      </div>
+
+      <h3>Key Features</h3>
+      <div class="arch-box">
+        <ul>
+          <li>Procedural tester confirms DB connection, runs <code>SHOW DATABASES</code>, <code>SHOW TABLES</code>, and <code>SELECT * FROM schb_students</code></li>
+          <li>OOP tester includes <code>selectOne()</code> — returns a single student record by ID</li>
+          <li>All-records client: "Please click to view all student records" button returns 5 students via JSON, displayed via <code>innerHTML</code></li>
+          <li>Single-record client: Student ID input field; submitting ID 2 returns "Record found: 2 Bob Martinez Information Technology 3.42"</li>
+          <li><code>schb_Students_API</code> raw JSON tester returns full array of all 5 student records</li>
+          <li><code>schb_SelectOne_API</code> raw JSON tester accepts <code>?student_id=3</code> and returns <code>{"record":"3 Carol Williams Cybersecurity 3.91","status":"found"}</code></li>
+        </ul>
+      </div>
+
+      <h3>Student Records (MySQL DB — schb_students table)</h3>
+      <div class="arch-box">
+        <ul>
+          <li>1 &mdash; Alice Johnson &mdash; Computer Science &mdash; 3.85</li>
+          <li>2 &mdash; Bob Martinez &mdash; Information Technology &mdash; 3.42</li>
+          <li>3 &mdash; Carol Williams &mdash; Cybersecurity &mdash; 3.91</li>
+          <li>4 &mdash; David Brown &mdash; Computer Science &mdash; 2.78</li>
+          <li>5 &mdash; Emma Davis &mdash; Information Technology &mdash; 3.65</li>
+        </ul>
+      </div>
 
       <h3>Live Demo</h3>
       <p>
-        <!-- Replace # with your actual hosted demo URL -->
+        <!-- Update href with your hosted URL once deployed -->
         <a href="#" class="btn" target="_blank">Launch Live Demo &rarr;</a>
       </p>
 
       <h3>Screen Captures</h3>
-      <p><em>Add screenshots here once the project is complete.</em></p>
-      <!--
-        <img src="projects/cis266/unit2ex3/screenshot1.png"
-             alt="Unit2 Ex3 - REST Service Demo"
-             style="max-width:100%; border-radius:6px; margin-bottom:1rem;" />
-      -->
+      <p><strong>Index Page &mdash; schb_unit2_ex3 HOME Page</strong></p>
+      <p><em>5 navigation links: Run all testers, Display single record (innerHTML), Display all records (innerHTML), Test schb_Students_API (raw JSON), Test schb_SelectOne_API (raw JSON).</em></p>
 
-      <h3>Sample Code &mdash; PHP REST Endpoint</h3>
+      <p><strong>Run All Testers</strong></p>
+      <p><em>Procedural tester confirms connection (hostName=localhost, databaseName=students), runs SHOW DATABASES (lists app, information_schema, mysql, students, etc.), SHOW TABLES (schb_students), and SELECT * returning all 5 records. OOP tester confirms selectOne() returns result for student id=1.</em></p>
+
+      <p><strong>Display Single Student Record (AJAJ innerHTML)</strong></p>
+      <p><em>Before: Student ID input field with Submit button, empty Message Contents area. After: Student ID=2 submitted → "Record found: 2 Bob Martinez Information Technology 3.42"</em></p>
+
+      <p><strong>Display All Student Records (AJAJ innerHTML)</strong></p>
+      <p><em>Submit button returns all 5 records: "Number of records returned = 5" followed by each student on a new line.</em></p>
+
+      <p><strong>Test schb_Students_API (Raw JSON)</strong></p>
+      <p><em>Tester page with "Click to test schb_Students_API" link; raw JSON output shows full array of all 5 student records.</em></p>
+
+      <p><strong>Test schb_SelectOne_API (Raw JSON)</strong></p>
+      <p><em>Student ID input form; querying id=3 returns raw JSON: <code>{"record":"3 Carol Williams Cybersecurity 3.91","status":"found"}</code></em></p>
+
+      <h3>Sample Code &mdash; schb_Students_API.php (RESTful Provider)</h3>
       <pre><code>&lt;?php
-// api.php — simple RESTful endpoint example
+// ServiceProvider/schb_Students_API.php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-$conn = new mysqli('localhost', 'user', 'pass', 'db');
-$method = $_SERVER['REQUEST_METHOD'];
+require_once 'class_lib/DB.php';
+require_once 'class_lib/StudentsDB.php';
 
-if ($method === 'GET') {
-    $result = $conn->query("SELECT * FROM items ORDER BY id DESC");
-    $rows = [];
-    while ($row = $result->fetch_assoc()) {
-        $rows[] = $row;
-    }
-    echo json_encode(['status' => 'success', 'data' => $rows]);
+$db  = new DB();
+$conn = $db-&gt;getConnection();
+$studentsDB = new StudentsDB($conn);
 
-} elseif ($method === 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
-    $name = $conn->real_escape_string($data['name']);
-    $conn->query("INSERT INTO items (name) VALUES ('$name')");
-    echo json_encode(['status' => 'created', 'id' => $conn->insert_id]);
-}
-$conn->close();
+$records = $studentsDB-&gt;getAllStudents();
+echo json_encode($records);
 ?&gt;</code></pre>
 
-      <a href="projects/cis266/unit2ex3/documentation.pdf" class="btn secondary" target="_blank">Full Documentation (PDF)</a>
+      <h3>Sample Code &mdash; schb_SelectOne_API.php (Single Record Endpoint)</h3>
+      <pre><code>&lt;?php
+// ServiceProvider/schb_SelectOne_API.php
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+
+require_once 'class_lib/DB.php';
+require_once 'class_lib/StudentsDB.php';
+
+$id = isset($_GET['student_id']) ? intval($_GET['student_id']) : 0;
+
+$db  = new DB();
+$conn = $db-&gt;getConnection();
+$studentsDB = new StudentsDB($conn);
+
+$result = $studentsDB-&gt;selectOne($id);
+
+if ($result) {
+    echo json_encode(['record' =&gt; $result, 'status' =&gt; 'found']);
+} else {
+    http_response_code(404);
+    echo json_encode(['record' =&gt; '', 'status' =&gt; 'not found']);
+}
+?&gt;</code></pre>
+
+      <h3>Sample Code &mdash; AJAJ Client (innerHTML, Single Record)</h3>
+      <pre><code>// ServiceClient/schb_SelectOne_Client.html — JavaScript
+function submitForm() {
+    const studentId = document.getElementById('studentId').value;
+    const xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (this.readyState === 4 &amp;&amp; this.status === 200) {
+            const data = JSON.parse(this.responseText);
+            const msg  = data.status === 'found'
+                ? 'Record found:&lt;br&gt;' + data.record
+                : 'No record found for that ID.';
+            document.getElementById('messageContents').innerHTML = msg;
+        }
+    };
+
+    xhr.open('GET',
+        '../ServiceProvider/schb_SelectOne_API.php?student_id=' + studentId,
+        true);
+    xhr.send();
+}</code></pre>
+
+      <a href="syllabi/schb_unit2_ex3.pdf" class="btn secondary" target="_blank">Full Documentation (PDF)</a>
     </div>
 
     <!-- ===== 2. Unit 1 Ex4 / Scrum 3 — Sailboat RESTful PHP Web Service ===== -->
